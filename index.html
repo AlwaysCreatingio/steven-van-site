@@ -54,7 +54,7 @@
   </script>
 
   <style>
-    html { font-size: 17.6px; scrollbar-gutter: stable; overscroll-behavior: none; }
+    html { font-size: 17.6px; scrollbar-gutter: stable; overscroll-behavior: none; overflow-x: hidden; max-width: 100vw; }
     body {
       background: #ffffff;
       color: #0a0a0a;
@@ -62,7 +62,10 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       letter-spacing: -0.01em;
+      overflow-x: hidden;
+      max-width: 100vw;
     }
+    main, .bento { max-width: 100vw; }
     h1, h2, h3, h4 { letter-spacing: -0.025em; }
 
     /* Pill button — gradient overlay matches Creators-Toolbox */
@@ -370,8 +373,7 @@
       margin-bottom: 2px;
     }
     .audience-ticker-wrap {
-      overflow-x: clip;
-      overflow-y: visible;
+      overflow: hidden;
       padding: 8px 0;
       margin: -8px 0;
     }
