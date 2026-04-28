@@ -54,7 +54,7 @@
   </script>
 
   <style>
-    html { font-size: 17.6px; scrollbar-gutter: stable; overscroll-behavior: none; overflow-x: hidden; max-width: 100vw; }
+    html { font-size: 17.6px; scrollbar-gutter: stable; overscroll-behavior: none; }
     body {
       background: #ffffff;
       color: #0a0a0a;
@@ -62,10 +62,7 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       letter-spacing: -0.01em;
-      overflow-x: hidden;
-      max-width: 100vw;
     }
-    main, .bento { max-width: 100vw; }
     h1, h2, h3, h4 { letter-spacing: -0.025em; }
 
     /* Pill button — gradient overlay matches Creators-Toolbox */
@@ -218,7 +215,7 @@
       .row-3 { grid-row: span 2; }
     }
     @media (max-width: 480px) {
-      .bento { grid-template-columns: 1fr; grid-auto-rows: auto; }
+      .bento { grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto; }
       .col-2, .col-3, .col-4 { grid-column: span 1; }
       .row-2, .row-3 { grid-row: span 1; }
     }
@@ -257,6 +254,13 @@
     @media (max-width: 380px) {
       .audience-tile { width: 200px; }
       .bento-card { padding: 14px; }
+    }
+    /* Prevent overflow from the Steven Van hero heading on narrow screens */
+    @media (max-width: 420px) {
+      [data-about-card] a[href*="x.com/stevenvan"] {
+        font-size: 40px !important;
+        letter-spacing: 0.04em !important;
+      }
     }
 
     /* Cursor-following hover images (SVP + ABOUT) */
