@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Steven Van — Builder, designer, and operator</title>
+  <meta name="description" content="Steven Van — projects, products, and experiments. Currently at beehiiv. Building Creators Toolbox, Very Good Ads, and more." />
+  <meta name="theme-color" content="#ffffff" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Steven Van" />
+  <meta property="og:description" content="Builder, designer, and operator. Currently at beehiiv." />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Steven Van" />
+  <meta name="twitter:description" content="Builder, designer, and operator. Currently at beehiiv." />
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230a0a0a'/%3E%3Ctext x='50' y='66' font-family='Inter,sans-serif' font-size='52' font-weight='800' text-anchor='middle' fill='%23fff'%3ESV%3C/text%3E%3C/svg%3E" />
+
+  <!-- Font: DM Sans (closest free alternative to Google Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind Play CDN — zero build step. Swap to compiled Tailwind for production. -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"DM Sans"', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+          },
+          colors: {
+            ink: {
+              50: '#0a0a0a',
+              100: '#171717',
+              200: '#262626',
+              300: '#404040',
+              400: '#525252',
+              500: '#737373',
+              600: '#a3a3a3',
+              700: '#d4d4d4',
+              800: '#e5e5e5',
+              900: '#f5f5f5',
+              950: '#ffffff',
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    html { font-size: 17.6px; scrollbar-gutter: stable; overscroll-behavior: none; }
+    body {
+      background: #ffffff;
+      color: #0a0a0a;
+      font-family: 'DM Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      letter-spacing: -0.01em;
+    }
+    h1, h2, h3, h4 { letter-spacing: -0.025em; }
+
+    /* Pill button — gradient overlay matches Creators-Toolbox */
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-weight: 600;
+      border-radius: 9999px;
+      transition: all 150ms;
+      cursor: pointer;
+      overflow: hidden;
+      letter-spacing: -0.01em;
+    }
+    .btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 40%, rgba(0,0,0,0.08) 100%);
+    }
+    .btn:hover { filter: brightness(1.1); }
+    .btn:active { filter: brightness(0.95); }
+
+    .btn-primary {
+      background: #1a1a1a;
+      color: #ffffff;
+      border: 1px solid #1a1a1a;
+    }
+    .btn-primary:hover { background: #333333; }
+
+    .btn-secondary {
+      background: transparent;
+      color: #525252;
+      border: 1px solid #d4d4d4;
+    }
+    .btn-secondary::after { display: none; }
+    .btn-secondary:hover { color: #0a0a0a; border-color: #a3a3a3; background: rgba(0,0,0,0.03); }
+
+    .btn-md { font-size: 14px; padding: 8px 20px; height: 38px; }
+    .btn-lg { font-size: 16px; padding: 10px 32px; height: 50px; }
+
+    /* Project card */
+    .project-card {
+      background: #fafafa;
+      border: 1px solid #e5e5e5;
+      border-radius: 1rem;
+      transition: background 200ms, border-color 200ms, transform 200ms;
+    }
+    .project-card:hover {
+      background: #f0f0f0;
+      border-color: #c0c0c0;
+      transform: translateY(-2px);
+    }
+    .project-card:hover .project-arrow {
+      transform: translate(2px, -2px);
+    }
+    .project-arrow { transition: transform 200ms; }
+
+    /* Page fade-in */
+    @keyframes pageFadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in { opacity: 0; animation: pageFadeIn 0.6s ease-out forwards; }
+    .delay-1 { animation-delay: 0.10s; }
+    .delay-2 { animation-delay: 0.20s; }
+    .delay-3 { animation-delay: 0.30s; }
+    .delay-4 { animation-delay: 0.45s; }
+
+    /* Stagger for grid */
+    .grid-stagger > * { opacity: 0; animation: pageFadeIn 0.5s ease-out forwards; }
+    .grid-stagger > *:nth-child(1) { animation-delay: 0.50s; }
+    .grid-stagger > *:nth-child(2) { animation-delay: 0.58s; }
+    .grid-stagger > *:nth-child(3) { animation-delay: 0.66s; }
+    .grid-stagger > *:nth-child(4) { animation-delay: 0.74s; }
+    .grid-stagger > *:nth-child(5) { animation-delay: 0.82s; }
+    .grid-stagger > *:nth-child(6) { animation-delay: 0.90s; }
+
+    /* Tag pill */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      background: #ffffff;
+      border: 1px solid #e5e5e5;
+      color: #525252;
+    }
+
+    /* Subtle scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(128, 128, 128, 0.08); border-radius: 5px; }
+    ::-webkit-scrollbar-thumb { background-color: #a3a3a3; border-radius: 5px; }
+    ::-webkit-scrollbar-thumb:hover { background-color: #525252; }
+
+    /* Avatar gradient (placeholder for hero) */
+    .avatar-gradient {
+      background:
+        radial-gradient(120% 100% at 0% 0%, #ffffff 0%, transparent 45%),
+        radial-gradient(120% 100% at 100% 100%, #d4d4d4 0%, transparent 50%),
+        linear-gradient(135deg, #fafafa 0%, #e5e5e5 100%);
+    }
+
+    /* Bento grid */
+    .bento {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-auto-rows: min-content;
+      grid-auto-flow: dense;
+      gap: 0;
+    }
+    .bento-card {
+      background: #fafafa;
+      border: 1px solid #e5e5e5;
+      margin: -1px 0 0 -1px; /* collapse adjacent borders */
+      padding: 20px;
+      transition: background 200ms, border-color 200ms;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .bento-card:hover {
+      background: #f0f0f0;
+      z-index: 1;
+    }
+    .bento-empty {
+      min-height: 160px;
+      align-items: center;
+      justify-content: center;
+      color: #a3a3a3;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+    /* Span helpers */
+    .col-2 { grid-column: span 2; }
+    .col-3 { grid-column: span 3; }
+    .col-4 { grid-column: span 4; }
+    .row-2 { grid-row: span 2; }
+    .row-3 { grid-row: span 3; }
+    @media (max-width: 768px) {
+      .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: auto; }
+      .col-3, .col-4 { grid-column: span 2; }
+      .row-3 { grid-row: span 2; }
+    }
+    @media (max-width: 480px) {
+      .bento { grid-template-columns: 1fr; grid-auto-rows: auto; }
+      .col-2, .col-3, .col-4 { grid-column: span 1; }
+      .row-2, .row-3 { grid-row: span 1; }
+    }
+    /* About card always comes before Audiences */
+    [data-about-card] { order: -1; }
+    /* Disable hover-only effects on touch / no-hover devices */
+    @media (hover: none), (pointer: coarse) {
+      .audience-tile:hover,
+      .partner-pill:hover,
+      .partner-toggle:hover,
+      .photo-tile:hover,
+      .bento-card:hover { transform: none !important; background: inherit; }
+      .audience-tile:hover { background: #ffffff; }
+      .partner-pill:hover { background: #ffffff; }
+    }
+
+    /* Mobile polish */
+    @media (max-width: 640px) {
+      html { font-size: 15.5px; }
+      .bento-card { padding: 16px; }
+      .audience-tile { width: 220px; padding: 6px 14px 6px 6px; }
+      .audience-tile img { width: 32px; height: 32px; }
+      .audience-count { font-size: 14px; }
+      .audience-ticker { gap: 8px; }
+      /* Section headings (only the small ones inside the section eyebrow rows) */
+      .bento-card .text-\[18px\] h2 { font-size: 15px; }
+      /* Tighten partner pills */
+      .partner-pill { padding: 5px 12px 5px 5px; font-size: 12px; }
+      .partner-pill img { width: 20px; height: 20px; }
+      .partner-toggle { width: 30px; height: 30px; }
+      /* Stats numbers smaller */
+      .bento-card .text-\[24px\] { font-size: 20px !important; }
+      /* Tighten ABOUT/CT/etc heading icon */
+      .bento-card .w-5.h-5.rounded-sm { width: 18px; height: 18px; }
+    }
+    @media (max-width: 380px) {
+      .audience-tile { width: 200px; }
+      .bento-card { padding: 14px; }
+    }
+
+    /* Cursor-following hover images (SVP + ABOUT) */
+    .hover-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      opacity: 0;
+      z-index: 60;
+      will-change: transform, opacity;
+      background-size: cover;
+      background-position: center top;
+      transition: opacity 350ms ease;
+    }
+    /* No hover-follow images on touch devices */
+    @media (hover: none), (pointer: coarse) {
+      .hover-image { display: none !important; }
+    }
+    /* SVP: cursor-follow anchor with two stacked layers for opaque crossfade.
+       Stage is a zero-size positioning anchor; each layer sizes itself to its image. */
+    .svp-stage {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+      opacity: 0;
+      z-index: 60;
+      will-change: transform, opacity;
+      transition: opacity 300ms ease;
+    }
+    .svp-stage.is-active { opacity: 1; }
+    .svp-layer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 600ms linear;
+    }
+    .svp-layer.is-active { opacity: 1; }
+    @media (hover: none), (pointer: coarse) {
+      .svp-stage { display: none !important; }
+    }
+    /* ABOUT: video, full frame (no crop) */
+    .about-photo {
+      width: 480px;
+      height: auto;
+      max-height: 80vh;
+      object-fit: contain;
+      background: transparent;
+    }
+
+    /* Audience accounts — single-row scrolling ticker */
+    .audience-tile {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 18px 8px 8px;
+      background: #ffffff;
+      border: 1px solid #e5e5e5;
+      border-radius: 9999px;
+      transition: border-color 150ms, background 150ms, transform 150ms;
+      text-decoration: none;
+      color: inherit;
+      flex-shrink: 0;
+      width: 240px;
+    }
+    .audience-tile:hover {
+      border-color: #a3a3a3;
+      background: #fafafa;
+      transform: translateY(-1px);
+    }
+    .audience-tile img {
+      width: 36px;
+      height: 36px;
+      border-radius: 9999px;
+      object-fit: cover;
+      background: #ffffff;
+      flex-shrink: 0;
+      border: 1px solid #e5e5e5;
+    }
+    .audience-meta { min-width: 0; flex: 1; }
+    .audience-handle {
+      font-size: 12px;
+      color: #525252;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .audience-count {
+      font-size: 16px;
+      font-weight: 600;
+      color: #0a0a0a;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+    }
+    .audience-unit {
+      font-size: 11px;
+      font-weight: 500;
+      color: #a3a3a3;
+      margin-left: 5px;
+      letter-spacing: 0;
+    }
+    .audience-platform {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: #a3a3a3;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .audience-ticker-wrap {
+      overflow-x: clip;
+      overflow-y: visible;
+      padding: 8px 0;
+      margin: -8px 0;
+    }
+    .audience-ticker {
+      display: flex;
+      gap: 12px;
+      width: max-content;
+      animation: audience-scroll 90s linear infinite;
+    }
+    .audience-ticker-wrap:hover .audience-ticker { animation-play-state: paused; }
+    @keyframes audience-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* Partner pills */
+    .partner-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px 6px 6px;
+      border-radius: 9999px;
+      background: #ffffff;
+      border: 1px solid #e5e5e5;
+      color: #262626;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: -0.005em;
+      transition: border-color 150ms, background 150ms, transform 150ms;
+      text-decoration: none;
+    }
+    .partner-pill:hover {
+      border-color: #a3a3a3;
+      background: #fafafa;
+      transform: translateY(-1px);
+    }
+    .partner-pill img {
+      width: 22px;
+      height: 22px;
+      border-radius: 9999px;
+      background: #f5f5f5;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .partners-more {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 350ms ease, opacity 250ms ease, margin-top 250ms ease;
+      margin-top: 0;
+    }
+    .partners-group.expanded .partners-more {
+      max-height: 800px;
+      opacity: 1;
+      margin-top: 8px;
+    }
+    .partner-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 9999px;
+      background: #ffffff;
+      border: 1px solid #e5e5e5;
+      color: #525252;
+      cursor: pointer;
+      transition: border-color 150ms, background 150ms, color 150ms, transform 150ms;
+      flex-shrink: 0;
+    }
+    .partner-toggle:hover {
+      border-color: #a3a3a3;
+      background: #fafafa;
+      color: #0a0a0a;
+      transform: translateY(-1px);
+    }
+    .partner-toggle svg {
+      transition: transform 200ms ease;
+    }
+    .partners-group.expanded .partner-toggle svg {
+      transform: rotate(180deg);
+    }
+
+    /* Project thumbnail backgrounds — subtle, on-brand */
+    .thumb-1 { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); }
+    .thumb-2 { background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); }
+    .thumb-3 { background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); }
+    .thumb-4 { background: linear-gradient(135deg, #ddd6fe 0%, #c4b5fd 100%); }
+    .thumb-5 { background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); }
+    .thumb-6 { background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%); }
+
+    .thumb-title {
+      font-weight: 800;
+      font-size: 28px;
+      letter-spacing: -0.03em;
+      color: #0a0a0a;
+      mix-blend-mode: multiply;
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <header class="w-full px-6 py-4 flex items-center justify-between border-b border-[#e5e5e5]">
+    <div class="flex items-center gap-3">
+      <a href="https://x.com/stevenvan_" target="_blank" rel="noopener" aria-label="X (@stevenvan_)" class="text-[#737373] hover:text-[#0a0a0a] transition-colors">
+        <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+      </a>
+      <a href="https://linkedin.com/in/steven-van" target="_blank" rel="noopener" aria-label="LinkedIn (steven-van)" class="text-[#737373] hover:text-[#0a0a0a] transition-colors">
+        <svg class="w-[19px] h-[19px]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+      </a>
+      <a href="https://github.com/AlwaysCreatingio" target="_blank" rel="noopener" aria-label="GitHub" class="text-[#737373] hover:text-[#0a0a0a] transition-colors">
+        <svg class="w-[19px] h-[19px]" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+      </a>
+    </div>
+    <div class="flex items-center gap-5">
+      <a href="#press" class="text-[13px] font-semibold tracking-[0.08em] uppercase text-[#525252] hover:text-[#0a0a0a] transition-colors">Press</a>
+      <a href="mailto:stevenvanyt@gmail.com" class="text-[13px] font-semibold tracking-[0.08em] uppercase text-[#525252] hover:text-[#0a0a0a] transition-colors">Contact</a>
+    </div>
+  </header>
+  <main id="top" class="w-full">
+    <div class="bento">
+      <!-- Audience grown -->
+      <div class="bento-card col-2 card-audience">
+        <div class="inline-flex items-center gap-2.5 text-[18px] font-semibold tracking-[0.06em] text-[#0a0a0a]">
+          <span class="w-5 h-5 rounded-sm bg-white border border-[#e5e5e5] flex items-center justify-center text-[#0a0a0a]">
+            <svg class="w-3 h-3" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <circle cx="6" cy="6" r="2.5"/>
+              <path d="M2 13.5c0-2 1.8-3.5 4-3.5s4 1.5 4 3.5"/>
+              <circle cx="11.5" cy="5.5" r="2"/>
+              <path d="M10 10a3.6 3.6 0 0 1 4 3.5"/>
+            </svg>
+          </span>
+          <h2 class="m-0 font-semibold tracking-[0.06em]">AUDIENCES I'VE BUILT</h2>
+        </div>
+
+        <div class="mt-4 grid grid-cols-1 md:grid-cols-[auto_1fr] gap-x-10 gap-y-4 items-end">
+          <div class="flex items-baseline gap-3">
+            <span class="text-[40px] sm:text-[56px] md:text-[72px] font-medium leading-[0.95] text-[#0a0a0a]" style="letter-spacing: 0.01em;">2.5M+</span>
+            <span class="text-[16px] sm:text-[18px] font-medium text-[#525252]">followers</span>
+          </div>
+          <p class="text-[15px] text-[#525252] leading-relaxed max-w-2xl pb-2">All grown 0 &rarr; X organically, no paid ads. Some accounts have since been discontinued, but every follower was earned by content alone.</p>
+        </div>
+
+        <div class="audience-ticker-wrap mt-6">
+          <div class="audience-ticker" data-audience-ticker>
+
+          <a href="https://www.linkedin.com/company/illustratortricks/" target="_blank" rel="noopener" class="audience-tile">
+            <img src="https://www.google.com/s2/favicons?domain=linkedin.com&sz=128" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">510K+<span class="audience-unit">followers</span></div>
+              <div class="audience-handle">Adobe Illustrator - Tips, Tricks, &amp; Tutorials</div>
+            </div>
+          </a>
+
+          <a href="https://www.linkedin.com/newsletters/creator-s-toolbox-7203203656882495488/" target="_blank" rel="noopener" class="audience-tile">
+            <img src="https://www.google.com/s2/favicons?domain=linkedin.com&sz=128" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">510K+<span class="audience-unit">subscribers</span></div>
+              <div class="audience-handle">Creator's Toolbox &middot; via IllustratorTricks</div>
+            </div>
+          </a>
+
+          <a href="https://www.linkedin.com/company/photoshoptutorials/" target="_blank" rel="noopener" class="audience-tile">
+            <img src="https://www.google.com/s2/favicons?domain=linkedin.com&sz=128" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">340K+<span class="audience-unit">followers</span></div>
+              <div class="audience-handle">Adobe Photoshop - Tips, Tricks, &amp; Tutorials</div>
+            </div>
+          </a>
+
+          <a href="https://www.youtube.com/@alwayscreatingio" target="_blank" rel="noopener" class="audience-tile">
+            <img src="https://www.google.com/s2/favicons?domain=youtube.com&sz=128" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">211,000+<span class="audience-unit">followers</span></div>
+              <div class="audience-handle">@alwayscreatingio</div>
+            </div>
+          </a>
+
+          <a href="https://www.linkedin.com/newsletters/creators-toolbox-7289024506512240640/" target="_blank" rel="noopener" class="audience-tile">
+            <img src="https://www.google.com/s2/favicons?domain=linkedin.com&sz=128" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">197K+<span class="audience-unit">subscribers</span></div>
+              <div class="audience-handle">Creators Toolbox &middot; via PhotoshopTricks</div>
+            </div>
+          </a>
+
+          <a href="https://x.com/AiTricks" target="_blank" rel="noopener" class="audience-tile">
+            <img src="https://www.google.com/s2/favicons?domain=x.com&sz=128" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">190K+<span class="audience-unit">followers</span></div>
+              <div class="audience-handle">@AiTricks</div>
+            </div>
+          </a>
+
+          <a href="https://creatorstoolbox.com/subscribe" target="_blank" rel="noopener" class="audience-tile">
+            <img src="https://creatorstoolbox.com/favicon.png" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">173K+<span class="audience-unit">subscribers</span></div>
+              <div class="audience-handle">Creators Toolbox</div>
+            </div>
+          </a>
+
+          <a href="https://www.instagram.com/photoshoptrickz/" target="_blank" rel="noopener" class="audience-tile">
+            <img src="https://www.google.com/s2/favicons?domain=instagram.com&sz=128" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">110K+<span class="audience-unit">followers</span></div>
+              <div class="audience-handle">@photoshoptrickz</div>
+            </div>
+          </a>
+
+          <a href="https://x.com/AdobeTricks" target="_blank" rel="noopener" class="audience-tile">
+            <img src="https://www.google.com/s2/favicons?domain=x.com&sz=128" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">72K+<span class="audience-unit">followers</span></div>
+              <div class="audience-handle">@AdobeTricks</div>
+            </div>
+          </a>
+
+          <a href="https://x.com/AfterTricks" target="_blank" rel="noopener" class="audience-tile">
+            <img src="https://www.google.com/s2/favicons?domain=x.com&sz=128" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">60K+<span class="audience-unit">followers</span></div>
+              <div class="audience-handle">@AfterTricks</div>
+            </div>
+          </a>
+
+          <a href="https://x.com/ProcreateTuts" target="_blank" rel="noopener" class="audience-tile">
+            <img src="https://www.google.com/s2/favicons?domain=x.com&sz=128" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">17.5K+<span class="audience-unit">followers</span></div>
+              <div class="audience-handle">@ProcreateTuts</div>
+            </div>
+          </a>
+
+          <a href="https://www.linkedin.com/company/illustratortricks" target="_blank" rel="noopener" class="audience-tile">
+            <img src="https://www.google.com/s2/favicons?domain=linkedin.com&sz=128" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">15K+<span class="audience-unit">followers</span></div>
+              <div class="audience-handle">IllustratorTricks</div>
+            </div>
+          </a>
+
+          <a href="https://x.com/PremiereTricks" target="_blank" rel="noopener" class="audience-tile">
+            <img src="https://www.google.com/s2/favicons?domain=x.com&sz=128" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">14.5K+<span class="audience-unit">followers</span></div>
+              <div class="audience-handle">@PremiereTricks</div>
+            </div>
+          </a>
+
+          <a href="https://www.threads.com/@photoshoptrickz" target="_blank" rel="noopener" class="audience-tile">
+            <img src="https://www.google.com/s2/favicons?domain=threads.com&sz=128" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">14.5K+<span class="audience-unit">followers</span></div>
+              <div class="audience-handle">@photoshoptrickz</div>
+            </div>
+          </a>
+
+          <a href="#" class="audience-tile">
+            <img src="https://www.google.com/s2/favicons?domain=facebook.com&sz=128" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">14K+<span class="audience-unit">followers</span></div>
+              <div class="audience-handle">members</div>
+            </div>
+          </a>
+
+          <a href="https://www.linkedin.com/newsletters/creator-s-toolbox-7289024604054958080/" target="_blank" rel="noopener" class="audience-tile">
+            <img src="https://www.google.com/s2/favicons?domain=linkedin.com&sz=128" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">8K+<span class="audience-unit">subscribers</span></div>
+              <div class="audience-handle">Creator's Toolbox &middot; via Creators Toolbox</div>
+            </div>
+          </a>
+
+          <a href="https://connectcreators.beehiiv.com" target="_blank" rel="noopener" class="audience-tile">
+            <img src="/images/connect-creators.avif" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">6K+<span class="audience-unit">subscribers</span></div>
+              <div class="audience-handle">Connect Creators</div>
+            </div>
+          </a>
+
+          <a href="https://x.com/creator_toolbox" target="_blank" rel="noopener" class="audience-tile">
+            <img src="https://www.google.com/s2/favicons?domain=x.com&sz=128" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">5.5K+<span class="audience-unit">followers</span></div>
+              <div class="audience-handle">@creator_toolbox</div>
+            </div>
+          </a>
+
+          <a href="https://www.linkedin.com/in/steven-van/" target="_blank" rel="noopener" class="audience-tile">
+            <img src="https://www.google.com/s2/favicons?domain=linkedin.com&sz=128" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">5K+<span class="audience-unit">followers</span></div>
+              <div class="audience-handle">steven-van</div>
+            </div>
+          </a>
+
+          <a href="https://www.instagram.com/creatorstoolboxco/" target="_blank" rel="noopener" class="audience-tile">
+            <img src="https://www.google.com/s2/favicons?domain=instagram.com&sz=128" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">5K+<span class="audience-unit">followers</span></div>
+              <div class="audience-handle">@creatorstoolboxco</div>
+            </div>
+          </a>
+
+          <a href="https://x.com/connectcreat0rs" target="_blank" rel="noopener" class="audience-tile">
+            <img src="https://www.google.com/s2/favicons?domain=x.com&sz=128" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">3.7K+<span class="audience-unit">followers</span></div>
+              <div class="audience-handle">@connectcreat0rs</div>
+            </div>
+          </a>
+
+          <a href="https://www.instagram.com/alwayscreating.io/" target="_blank" rel="noopener" class="audience-tile">
+            <img src="https://www.google.com/s2/favicons?domain=instagram.com&sz=128" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">2.3K+<span class="audience-unit">followers</span></div>
+              <div class="audience-handle">@alwayscreating.io</div>
+            </div>
+          </a>
+
+          <a href="https://www.linkedin.com/company/connectfreelancers/" target="_blank" rel="noopener" class="audience-tile">
+            <img src="https://www.google.com/s2/favicons?domain=linkedin.com&sz=128" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">2K+<span class="audience-unit">followers</span></div>
+              <div class="audience-handle">Connect Freelancers</div>
+            </div>
+          </a>
+
+          <a href="https://www.instagram.com/illustratortrickz/" target="_blank" rel="noopener" class="audience-tile">
+            <img src="https://www.google.com/s2/favicons?domain=instagram.com&sz=128" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">1.8K+<span class="audience-unit">followers</span></div>
+              <div class="audience-handle">@illustratortrickz</div>
+            </div>
+          </a>
+
+          <a href="https://www.youtube.com/@creators.toolbox" target="_blank" rel="noopener" class="audience-tile">
+            <img src="https://www.google.com/s2/favicons?domain=youtube.com&sz=128" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">1.8K+<span class="audience-unit">followers</span></div>
+              <div class="audience-handle">@creators.toolbox</div>
+            </div>
+          </a>
+
+          <a href="https://x.com/CnctFreelancers" target="_blank" rel="noopener" class="audience-tile">
+            <img src="https://www.google.com/s2/favicons?domain=x.com&sz=128" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">1K+<span class="audience-unit">followers</span></div>
+              <div class="audience-handle">@CnctFreelancers</div>
+            </div>
+          </a>
+
+          <a href="https://www.threads.com/@creatorstoolboxco" target="_blank" rel="noopener" class="audience-tile">
+            <img src="https://www.google.com/s2/favicons?domain=threads.com&sz=128" alt="" loading="lazy"/>
+            <div class="audience-meta">
+              <div class="audience-count">200+<span class="audience-unit">followers</span></div>
+              <div class="audience-handle">@creatorstoolboxco</div>
+            </div>
+          </a>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="bento-card col-2 group/about" data-about-card>
+        <video class="hover-image about-photo" data-about-image src="/videos/about.mp4" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <a href="https://x.com/stevenvan_" target="_blank" rel="noopener" class="inline-flex items-center gap-3 text-[52px] sm:text-[56px] font-medium text-[#0a0a0a] group/heading" style="letter-spacing: 0.08em;">
+          <h2 class="m-0 leading-none group-hover/heading:underline underline-offset-4 decoration-[#0a0a0a]">Steven Van</h2>
+          <svg class="w-6 h-6 text-[#a3a3a3] group-hover/heading:text-[#0a0a0a] transition-colors" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+            <path d="M5 11L11 5M11 5H6M11 5V10" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <p class="mt-3 text-[17px] text-[#262626] leading-relaxed">
+          I'm a builder, product marketer, and creator. I turn ideas into products people actually use, and stories people actually read.
+        </p>
+        <p class="mt-3 text-[17px] text-[#262626] leading-relaxed">
+          I've grown projects from <span class="font-semibold text-[#0a0a0a]">0 &rarr; 1</span> with content and product-led growth, driven millions of organic views, and built audiences of hundreds of thousands across the web. I work end-to-end across strategy, product, brand, and code.
+        </p>
+
+        <a href="mailto:stevenvanyt@gmail.com" class="mt-5 text-[15px] text-[#525252] hover:text-[#0a0a0a] underline underline-offset-4 decoration-[#d4d4d4] hover:decoration-[#0a0a0a] transition-colors w-fit">stevenvanyt@gmail.com</a>
+      </div>
+
+      <!-- Creators Toolbox -->
+      <div class="bento-card col-2 partners-group group/card cursor-pointer" data-card-expand role="button" tabindex="0" aria-expanded="false" aria-label="Expand Creators Toolbox">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-3">
+          <a href="https://creatorstoolbox.com" target="_blank" rel="noopener" class="inline-flex items-center gap-2.5 text-[18px] font-semibold tracking-[0.06em] text-[#0a0a0a] group/heading">
+            <img src="https://creatorstoolbox.com/favicon.png" alt="" class="w-5 h-5 rounded-sm" loading="lazy" />
+            <span class="group-hover/heading:underline underline-offset-4 decoration-[#0a0a0a]">CREATORS TOOLBOX</span>
+            <svg class="w-[18px] h-[18px] text-[#a3a3a3] group-hover/heading:text-[#0a0a0a] transition-colors" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+              <path d="M5 11L11 5M11 5H6M11 5V10" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <div class="text-[12px] font-semibold tracking-[0.08em] text-[#737373] uppercase whitespace-nowrap pt-1">Aug 2023 &ndash; Present</div>
+        </div>
+        <div>
+          <p class="mt-3 text-[17px] text-[#262626] leading-relaxed">
+            A newsletter + website directory providing free news, tools, and resources for designers, video editors, content creators, and builders.
+          </p>
+        </div>
+
+        <div class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-3">
+          <div>
+            <div class="text-[24px] font-semibold tracking-tight leading-none">173,000+</div>
+            <div class="mt-1.5 text-[13px] text-[#737373]">lifetime subscribers</div>
+          </div>
+          <div class="w-px h-8 bg-[#e5e5e5]"></div>
+          <div>
+            <div class="text-[24px] font-semibold tracking-tight leading-none">47,000+</div>
+            <div class="mt-1.5 text-[13px] text-[#737373]">active subscribers</div>
+          </div>
+          <div class="w-px h-8 bg-[#e5e5e5]"></div>
+          <div>
+            <div class="text-[24px] font-semibold tracking-tight leading-none">30,000+</div>
+            <div class="mt-1.5 text-[13px] text-[#737373]">daily visitors</div>
+          </div>
+          <div class="w-px h-8 bg-[#e5e5e5]"></div>
+          <div>
+            <div class="text-[24px] font-semibold tracking-tight leading-none">$100,000+</div>
+            <div class="mt-1.5 text-[13px] text-[#737373]">/yr revenue</div>
+          </div>
+        </div>
+
+        <div class="mt-6 text-[15px] font-semibold tracking-[0.06em] text-[#525252]">BRANDS I'VE WORKED WITH</div>
+
+        <div class="mt-3 flex flex-wrap gap-2">
+          <a href="https://google.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=google.com&sz=64" alt="" loading="lazy"/>Google</a>
+          <a href="https://hubspot.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=hubspot.com&sz=64" alt="" loading="lazy"/>HubSpot</a>
+          <a href="https://bolt.new" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=bolt.new&sz=64" alt="" loading="lazy"/>bolt.new</a>
+          <a href="https://gamma.app" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=gamma.app&sz=64" alt="" loading="lazy"/>Gamma</a>
+          <a href="https://granola.ai" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=granola.ai&sz=64" alt="" loading="lazy"/>Granola</a>
+          <a href="https://lindy.ai" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=lindy.ai&sz=64" alt="" loading="lazy"/>Lindy</a>
+          <a href="https://you.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=you.com&sz=64" alt="" loading="lazy"/>You.com</a>
+          <a href="https://attio.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=attio.com&sz=64" alt="" loading="lazy"/>Attio</a>
+          <a href="https://riverside.fm" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=riverside.fm&sz=64" alt="" loading="lazy"/>Riverside</a>
+          <a href="https://beehiiv.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=beehiiv.com&sz=64" alt="" loading="lazy"/>beehiiv</a>
+          <a href="https://mintlify.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=mintlify.com&sz=64" alt="" loading="lazy"/>Mintlify</a>
+          <a href="https://wisprflow.ai" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=wisprflow.ai&sz=64" alt="" loading="lazy"/>Wispr Flow</a>
+          <button type="button" class="partner-toggle" data-partners-toggle aria-expanded="false" aria-label="Show all">
+            <svg class="w-4 h-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M3 6L8 11L13 6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="partners-more flex flex-wrap gap-2">
+          <a href="https://synthflow.ai" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=synthflow.ai&sz=64" alt="" loading="lazy"/>Synthflow</a>
+          <a href="https://gladly.ai" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=gladly.ai&sz=64" alt="" loading="lazy"/>Gladly</a>
+          <a href="https://guidde.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=guidde.com&sz=64" alt="" loading="lazy"/>Guidde</a>
+          <a href="https://contra.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=contra.com&sz=64" alt="" loading="lazy"/>Contra</a>
+          <a href="https://typeless.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=typeless.com&sz=64" alt="" loading="lazy"/>Typeless</a>
+          <a href="https://syllaby.io" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=syllaby.io&sz=64" alt="" loading="lazy"/>Syllaby</a>
+          <a href="https://skej.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=skej.com&sz=64" alt="" loading="lazy"/>Skej</a>
+          <a href="https://authory.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=authory.com&sz=64" alt="" loading="lazy"/>Authory</a>
+          <a href="https://wistia.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=wistia.com&sz=64" alt="" loading="lazy"/>Wistia</a>
+          <a href="https://kajabi.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=kajabi.com&sz=64" alt="" loading="lazy"/>Kajabi</a>
+          <a href="https://stan.store" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=stan.store&sz=64" alt="" loading="lazy"/>Stan</a>
+          <a href="https://honeybook.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=honeybook.com&sz=64" alt="" loading="lazy"/>HoneyBook</a>
+          <a href="https://prezi.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=prezi.com&sz=64" alt="" loading="lazy"/>Prezi</a>
+          <a href="https://clickfunnels.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=clickfunnels.com&sz=64" alt="" loading="lazy"/>ClickFunnels</a>
+          <a href="https://superside.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=superside.com&sz=64" alt="" loading="lazy"/>Superside</a>
+          <a href="https://adquick.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=adquick.com&sz=64" alt="" loading="lazy"/>AdQuick</a>
+          <a href="https://levanta.io" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=levanta.io&sz=64" alt="" loading="lazy"/>Levanta</a>
+          <a href="https://raptive.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=raptive.com&sz=64" alt="" loading="lazy"/>Raptive</a>
+          <a href="https://udacity.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=udacity.com&sz=64" alt="" loading="lazy"/>Udacity</a>
+          <a href="https://accenture.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=accenture.com&sz=64" alt="" loading="lazy"/>Accenture</a>
+          <a href="https://betterment.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=betterment.com&sz=64" alt="" loading="lazy"/>Betterment</a>
+          <a href="https://betterhelp.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=betterhelp.com&sz=64" alt="" loading="lazy"/>BetterHelp</a>
+          <a href="https://shutterstock.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=shutterstock.com&sz=64" alt="" loading="lazy"/>Shutterstock</a>
+          <a href="https://roku.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=roku.com&sz=64" alt="" loading="lazy"/>Roku</a>
+        </div>
+      </div>
+
+      <!-- Always Creating -->
+      <div class="bento-card col-2 partners-group group/card cursor-pointer" data-card-expand role="button" tabindex="0" aria-expanded="false" aria-label="Expand Always Creating">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-3">
+          <a href="https://alwayscreating.io" target="_blank" rel="noopener" class="inline-flex items-center gap-2.5 text-[18px] font-semibold tracking-[0.06em] text-[#0a0a0a] group/heading">
+            <img src="https://www.google.com/s2/favicons?domain=alwayscreating.io&sz=64" alt="" class="w-5 h-5 rounded-sm" loading="lazy" />
+            <span class="group-hover/heading:underline underline-offset-4 decoration-[#0a0a0a]">ALWAYS CREATING</span>
+            <svg class="w-[18px] h-[18px] text-[#a3a3a3] group-hover/heading:text-[#0a0a0a] transition-colors" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+              <path d="M5 11L11 5M11 5H6M11 5V10" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <div class="text-[12px] font-semibold tracking-[0.08em] text-[#737373] uppercase whitespace-nowrap pt-1">May 2015 &ndash; Present</div>
+        </div>
+        <div>
+          <p class="mt-3 text-[17px] text-[#262626] leading-relaxed">
+            My YouTube channel and digital product brand. Videos, courses, and downloads for designers, creators, and builders.
+          </p>
+        </div>
+
+        <div class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-3">
+          <div>
+            <div class="text-[24px] font-semibold tracking-tight leading-none">211K+</div>
+            <div class="mt-1.5 text-[13px] text-[#737373]">YouTube subscribers</div>
+          </div>
+          <div class="w-px h-8 bg-[#e5e5e5]"></div>
+          <div>
+            <div class="text-[24px] font-semibold tracking-tight leading-none">28M+</div>
+            <div class="mt-1.5 text-[13px] text-[#737373]">lifetime views</div>
+          </div>
+          <div class="w-px h-8 bg-[#e5e5e5]"></div>
+          <div>
+            <div class="text-[24px] font-semibold tracking-tight leading-none">600+</div>
+            <div class="mt-1.5 text-[13px] text-[#737373]">videos published</div>
+          </div>
+          <div class="w-px h-8 bg-[#e5e5e5]"></div>
+          <div>
+            <div class="text-[24px] font-semibold tracking-tight leading-none">32,500+</div>
+            <div class="mt-1.5 text-[13px] text-[#737373]">digital product sales</div>
+          </div>
+        </div>
+
+        <div class="mt-5 flex items-center gap-3">
+          <a href="https://www.youtube.com/@alwayscreatingio" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-[14px] font-medium text-[#525252] hover:text-[#0a0a0a] transition-colors">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+            <span class="underline underline-offset-4 decoration-[#d4d4d4] hover:decoration-[#0a0a0a]">Watch on YouTube</span>
+          </a>
+        </div>
+
+        <div class="mt-6 text-[15px] font-semibold tracking-[0.06em] text-[#525252]">BRANDS I'VE WORKED WITH</div>
+
+        <div class="mt-3 flex flex-wrap gap-2">
+          <a href="https://www.youtube.com/watch?v=g6D6_FhBa_w" target="_blank" rel="noopener" data-video="g6D6_FhBa_w" data-video-title="Adobe" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=adobe.com&sz=64" alt="" loading="lazy"/>Adobe</a>
+          <a href="https://www.youtube.com/watch?v=cdBtvdgNAHs" target="_blank" rel="noopener" data-video="cdBtvdgNAHs" data-video-title="Zapier" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=zapier.com&sz=64" alt="" loading="lazy"/>Zapier</a>
+          <a href="https://www.youtube.com/watch?v=r6L3zZLl4S8" target="_blank" rel="noopener" data-video="r6L3zZLl4S8" data-video-title="Wix" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=wix.com&sz=64" alt="" loading="lazy"/>Wix</a>
+          <a href="https://www.youtube.com/watch?v=H-9nKL0mKt4" target="_blank" rel="noopener" data-video="H-9nKL0mKt4" data-video-title="Envato Elements" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=envato.com&sz=64" alt="" loading="lazy"/>Envato Elements</a>
+          <a href="https://www.youtube.com/watch?v=3sJVQVMX6iI" target="_blank" rel="noopener" data-video="3sJVQVMX6iI" data-video-title="Wondershare" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=wondershare.com&sz=64" alt="" loading="lazy"/>Wondershare</a>
+          <button type="button" class="partner-toggle" data-partners-toggle aria-expanded="false" aria-label="Show all">
+            <svg class="w-4 h-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M3 6L8 11L13 6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="partners-more flex flex-wrap gap-2">
+          <a href="https://www.youtube.com/watch?v=ar4Sd47TuJE" target="_blank" rel="noopener" data-video="ar4Sd47TuJE" data-video-title="InVideo" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=invideo.io&sz=64" alt="" loading="lazy"/>InVideo</a>
+          <a href="https://www.youtube.com/watch?v=pceureiChTM" target="_blank" rel="noopener" data-video="pceureiChTM" data-video-title="Luminar Neo" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=skylum.com&sz=64" alt="" loading="lazy"/>Luminar Neo</a>
+          <a href="https://www.youtube.com/watch?v=sQvxW2VtrWo" target="_blank" rel="noopener" data-video="sQvxW2VtrWo" data-video-title="AEJuice" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=aejuice.com&sz=64" alt="" loading="lazy"/>AEJuice</a>
+          <a href="https://www.youtube.com/watch?v=SRwEjbtkEIg" target="_blank" rel="noopener" data-video="SRwEjbtkEIg" data-video-title="VSDC" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=videosoftdev.com&sz=64" alt="" loading="lazy"/>VSDC</a>
+        </div>
+      </div>
+
+      <!-- Steven Van Productions -->
+      <div class="bento-card col-2 group/card">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-3">
+          <a href="/productions.html" class="inline-flex items-center gap-2.5 text-[18px] font-semibold tracking-[0.06em] text-[#0a0a0a] group/heading">
+            <img src="/images/svp-logo.jpeg" alt="" class="w-5 h-5 rounded-sm object-cover" loading="lazy" />
+            <span class="group-hover/heading:underline underline-offset-4 decoration-[#0a0a0a]">STEVEN VAN PRODUCTIONS</span>
+            <svg class="w-4 h-4 text-[#a3a3a3] group-hover/heading:text-[#0a0a0a] transition-colors" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+              <path d="M5 11L11 5M11 5H6M11 5V10" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <div class="text-[12px] font-semibold tracking-[0.08em] text-[#737373] uppercase whitespace-nowrap pt-1">Apr 2019 &ndash; Apr 2023</div>
+        </div>
+        <div>
+          <p class="mt-3 text-[17px] text-[#262626] leading-relaxed">
+            My creative production studio. Branded content, music videos, and campaigns for global brands and institutions.
+          </p>
+        </div>
+
+        <!-- Photo crossfade — follows cursor on hover. Photos defined in SVP_PHOTOS in script below. -->
+        <div data-svp-trail aria-hidden="true">
+          <div class="svp-stage" data-svp-stage>
+            <div class="svp-layer" data-svp-layer></div>
+            <div class="svp-layer" data-svp-layer></div>
+          </div>
+        </div>
+
+        <div class="mt-6 text-[15px] font-semibold tracking-[0.06em] text-[#525252]">PAST CLIENTS</div>
+
+        <div class="mt-3 flex flex-wrap gap-2">
+          <a href="https://www.converse.com" target="_blank" rel="noopener" class="partner-pill"><img src="/images/converse-logo.png" alt="" loading="lazy"/>Converse</a>
+          <a href="https://www.canon.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=canon.com&sz=64" alt="" loading="lazy"/>Canon</a>
+          <a href="https://www.doritos.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=doritos.com&sz=64" alt="" loading="lazy"/>Doritos</a>
+          <a href="https://www.mountaindew.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=mountaindew.com&sz=64" alt="" loading="lazy"/>Mountain Dew</a>
+          <a href="https://www.2k.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=2k.com&sz=64" alt="" loading="lazy"/>2K</a>
+          <a href="https://www.columbiarecords.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=columbiarecords.com&sz=64" alt="" loading="lazy"/>Columbia Records</a>
+          <a href="https://www.epicrecords.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=epicrecords.com&sz=64" alt="" loading="lazy"/>Epic Records</a>
+          <a href="https://www.utoronto.ca" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=utoronto.ca&sz=64" alt="" loading="lazy"/>University of Toronto</a>
+          <a href="https://www.torontomu.ca" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=torontomu.ca&sz=64" alt="" loading="lazy"/>Toronto Metropolitan University</a>
+          <a href="https://www.brampton.ca" target="_blank" rel="noopener" class="partner-pill"><img src="/images/brampton-logo.jpg" alt="" loading="lazy"/>City of Brampton</a>
+        </div>
+      </div>
+
+      <!-- beehiiv -->
+      <div class="bento-card col-2 partners-group group/card cursor-pointer" data-card-expand role="button" tabindex="0" aria-expanded="false" aria-label="Expand beehiiv">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-3">
+          <a href="https://beehiiv.com" target="_blank" rel="noopener" class="inline-flex items-center gap-2.5 text-[18px] font-semibold tracking-[0.06em] text-[#0a0a0a] group/heading">
+            <img src="https://www.google.com/s2/favicons?domain=beehiiv.com&sz=64" alt="" class="w-5 h-5 rounded-sm" loading="lazy" />
+            <span class="group-hover/heading:underline underline-offset-4 decoration-[#0a0a0a]">BEEHIIV</span>
+            <svg class="w-[18px] h-[18px] text-[#a3a3a3] group-hover/heading:text-[#0a0a0a] transition-colors" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+              <path d="M5 11L11 5M11 5H6M11 5V10" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <div class="text-[12px] font-semibold tracking-[0.08em] text-[#737373] uppercase whitespace-nowrap pt-1">Jun 2023 &ndash; Present</div>
+        </div>
+        <div>
+          <div class="mt-2 text-[14px] font-semibold tracking-[0.04em] text-[#525252] uppercase">Product Marketing Lead</div>
+          <p class="mt-3 text-[17px] text-[#262626] leading-relaxed">
+            15th employee and first marketing hire at <span class="font-medium text-[#0a0a0a]">beehiiv</span>. I owned launches, positioning, go-to-market, and driving adoption for every new product we shipped.
+          </p>
+          <p class="mt-3 text-[17px] text-[#262626] leading-relaxed">
+            Since I joined, ARR grew $3M &rarr; $27M+ and users 20K &rarr; 150K+. I also built <a href="https://www.youtube.com/@beehiiv" target="_blank" rel="noopener" class="text-[#0a0a0a] underline underline-offset-2 decoration-[#d4d4d4] hover:decoration-[#0a0a0a]">our YouTube channel</a> 0 &rarr; 20K subs and 12M+ views with 500+ videos.
+          </p>
+        </div>
+
+        <div class="mt-6 text-[15px] font-semibold tracking-[0.06em] text-[#525252]">PROJECTS I'VE BUILT</div>
+
+        <div class="mt-3 flex flex-wrap gap-2">
+          <a href="https://www.goodads.io" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=goodads.io&sz=64" alt="" loading="lazy"/>Very Good Ads</a>
+          <a href="https://www.goodcomponents.io" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=goodcomponents.io&sz=64" alt="" loading="lazy"/>Very Good Components</a>
+          <a href="https://www.goodnewsletters.io" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=goodnewsletters.io&sz=64" alt="" loading="lazy"/>Very Good Newsletters</a>
+          <button type="button" class="partner-toggle" data-partners-toggle aria-expanded="false" aria-label="Show all">
+            <svg class="w-4 h-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M3 6L8 11L13 6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="partners-more flex flex-wrap gap-2">
+          <a href="https://goodwebsites.io" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=goodwebsites.io&sz=64" alt="" loading="lazy"/>Very Good Websites</a>
+          <a href="https://gooddownloads.io" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=gooddownloads.io&sz=64" alt="" loading="lazy"/>Very Good Downloads</a>
+        </div>
+      </div>
+
+      <!-- Internships -->
+      <div class="bento-card col-4">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-3">
+          <div class="inline-flex items-center gap-2.5 text-[18px] font-semibold tracking-[0.06em] text-[#0a0a0a]">
+            <span class="w-5 h-5 rounded-sm bg-white border border-[#e5e5e5] flex items-center justify-center text-[#0a0a0a]">
+              <svg class="w-3 h-3" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <rect x="2" y="5" width="12" height="9" rx="1.5"/>
+                <path d="M6 5V4a1.5 1.5 0 0 1 1.5-1.5h1A1.5 1.5 0 0 1 10 4v1"/>
+                <path d="M2 9h12"/>
+              </svg>
+            </span>
+            <h2 class="m-0 font-semibold tracking-[0.06em]">INTERNSHIPS</h2>
+          </div>
+          <div class="text-[12px] font-semibold tracking-[0.08em] text-[#737373] uppercase whitespace-nowrap pt-1">2021 &ndash; 2023</div>
+        </div>
+
+        <ul class="mt-4 divide-y divide-[#e5e5e5]">
+          <li>
+            <a href="https://www.blossomsocial.com" target="_blank" rel="noopener" class="py-3 flex items-start gap-3 group/intern transition-colors hover:bg-[#f0f0f0]">
+              <img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.blossomsocial.com&size=128" alt="" class="w-9 h-9 rounded-md border border-[#e5e5e5] bg-white object-contain mt-0.5 flex-shrink-0" loading="lazy" />
+              <div class="flex-1 min-w-0">
+                <div class="text-[15px] font-semibold text-[#0a0a0a] leading-tight">Marketing Intern</div>
+                <div class="mt-0.5 text-[14px] text-[#525252]">Blossom Social</div>
+                <div class="mt-1 text-[12px] text-[#a3a3a3] uppercase tracking-[0.06em] font-medium">Jan 2023 &ndash; Jun 2023 &middot; 6 mos</div>
+              </div>
+              <svg class="w-4 h-4 text-[#a3a3a3] group-hover/intern:text-[#0a0a0a] transition-colors mt-1 flex-shrink-0" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <path d="M5 11L11 5M11 5H6M11 5V10" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.cdw.com" target="_blank" rel="noopener" class="py-3 flex items-start gap-3 group/intern transition-colors hover:bg-[#f0f0f0]">
+              <img src="https://www.google.com/s2/favicons?domain=cdw.com&sz=128" alt="" class="w-9 h-9 rounded-md border border-[#e5e5e5] bg-white object-contain mt-0.5 flex-shrink-0" loading="lazy" />
+              <div class="flex-1 min-w-0">
+                <div class="text-[15px] font-semibold text-[#0a0a0a] leading-tight">Marketing &amp; Design Intern</div>
+                <div class="mt-0.5 text-[14px] text-[#525252]">CDW</div>
+                <div class="mt-1 text-[12px] text-[#a3a3a3] uppercase tracking-[0.06em] font-medium">Sep 2022 &ndash; Nov 2022 &middot; 3 mos</div>
+              </div>
+              <svg class="w-4 h-4 text-[#a3a3a3] group-hover/intern:text-[#0a0a0a] transition-colors mt-1 flex-shrink-0" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <path d="M5 11L11 5M11 5H6M11 5V10" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href="https://quantifiedcitizen.com" target="_blank" rel="noopener" class="py-3 flex items-start gap-3 group/intern transition-colors hover:bg-[#f0f0f0]">
+              <img src="https://www.google.com/s2/favicons?domain=quantifiedcitizen.com&sz=128" alt="" class="w-9 h-9 rounded-md border border-[#e5e5e5] bg-white object-contain mt-0.5 flex-shrink-0" loading="lazy" />
+              <div class="flex-1 min-w-0">
+                <div class="text-[15px] font-semibold text-[#0a0a0a] leading-tight">Marketing Intern</div>
+                <div class="mt-0.5 text-[14px] text-[#525252]">Quantified Citizen</div>
+                <div class="mt-1 text-[12px] text-[#a3a3a3] uppercase tracking-[0.06em] font-medium">May 2022 &ndash; Sep 2022 &middot; 5 mos</div>
+              </div>
+              <svg class="w-4 h-4 text-[#a3a3a3] group-hover/intern:text-[#0a0a0a] transition-colors mt-1 flex-shrink-0" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <path d="M5 11L11 5M11 5H6M11 5V10" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.sonymusic.com" target="_blank" rel="noopener" class="py-3 flex items-start gap-3 group/intern transition-colors hover:bg-[#f0f0f0]">
+              <img src="https://www.google.com/s2/favicons?domain=sonymusic.com&sz=128" alt="" class="w-9 h-9 rounded-md border border-[#e5e5e5] bg-white object-contain mt-0.5 flex-shrink-0" loading="lazy" />
+              <div class="flex-1 min-w-0">
+                <div class="text-[15px] font-semibold text-[#0a0a0a] leading-tight">Social Media &amp; Media Relations Intern</div>
+                <div class="mt-0.5 text-[14px] text-[#525252]">Sony Music Entertainment</div>
+                <div class="mt-1 text-[12px] text-[#a3a3a3] uppercase tracking-[0.06em] font-medium">Aug 2021 &ndash; Dec 2021 &middot; 5 mos</div>
+              </div>
+              <svg class="w-4 h-4 text-[#a3a3a3] group-hover/intern:text-[#0a0a0a] transition-colors mt-1 flex-shrink-0" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <path d="M5 11L11 5M11 5H6M11 5V10" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Press -->
+      <div id="press" class="bento-card col-4">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-3">
+          <div class="inline-flex items-center gap-2.5 text-[18px] font-semibold tracking-[0.06em] text-[#0a0a0a]">
+            <span class="w-5 h-5 rounded-sm bg-white border border-[#e5e5e5] flex items-center justify-center text-[#0a0a0a]">
+              <svg class="w-3 h-3" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <rect x="2" y="3" width="11" height="10" rx="1.5"/>
+                <path d="M13 6h2v6.5a1 1 0 0 1-1 1h-1"/>
+                <path d="M5 6h5M5 9h5M5 11h3"/>
+              </svg>
+            </span>
+            <h2 class="m-0 font-semibold tracking-[0.06em]">PRESS</h2>
+          </div>
+        </div>
+
+        <ul class="mt-4 divide-y divide-[#e5e5e5]">
+          <li>
+            <a href="https://www.ssunday.co/converse-counter-climate" target="_blank" rel="noopener" class="py-3 flex items-start gap-3 group/press transition-colors hover:bg-[#f0f0f0]">
+              <img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.ssunday.co&size=128" alt="" class="w-9 h-9 rounded-md border border-[#e5e5e5] bg-white object-contain mt-0.5 flex-shrink-0" loading="lazy" />
+              <div class="flex-1 min-w-0">
+                <div class="text-[15px] font-semibold text-[#0a0a0a] leading-tight">Counter Climate: Converse Holiday Campaign</div>
+                <div class="mt-0.5 text-[14px] text-[#525252]">ssunday.co</div>
+              </div>
+              <svg class="w-4 h-4 text-[#a3a3a3] group-hover/press:text-[#0a0a0a] transition-colors mt-1 flex-shrink-0" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <path d="M5 11L11 5M11 5H6M11 5V10" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.littleburgundyshoes.com/blog/vintage-pop-up-by-thrifted-this" target="_blank" rel="noopener" class="py-3 flex items-start gap-3 group/press transition-colors hover:bg-[#f0f0f0]">
+              <img src="https://www.google.com/s2/favicons?domain=littleburgundyshoes.com&sz=128" alt="" class="w-9 h-9 rounded-md border border-[#e5e5e5] bg-white object-contain mt-0.5 flex-shrink-0" loading="lazy" />
+              <div class="flex-1 min-w-0">
+                <div class="text-[15px] font-semibold text-[#0a0a0a] leading-tight">Vintage Pop-Up by Thrifted This: In collaboration with Little Burgundy and Converse</div>
+                <div class="mt-0.5 text-[14px] text-[#525252]">Little Burgundy</div>
+              </div>
+              <svg class="w-4 h-4 text-[#a3a3a3] group-hover/press:text-[#0a0a0a] transition-colors mt-1 flex-shrink-0" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <path d="M5 11L11 5M11 5H6M11 5V10" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.youtube.com/watch?v=2h9oYwhSD78" target="_blank" rel="noopener" class="py-3 flex items-start gap-3 group/press transition-colors hover:bg-[#f0f0f0]">
+              <img src="https://www.google.com/s2/favicons?domain=youtube.com&sz=128" alt="" class="w-9 h-9 rounded-md border border-[#e5e5e5] bg-white object-contain mt-0.5 flex-shrink-0" loading="lazy" />
+              <div class="flex-1 min-w-0">
+                <div class="text-[15px] font-semibold text-[#0a0a0a] leading-tight">The Justin Odisho Podcast #6: How Steven Van is finding success on YouTube as a teen</div>
+                <div class="mt-0.5 text-[14px] text-[#525252]">YouTube</div>
+              </div>
+              <svg class="w-4 h-4 text-[#a3a3a3] group-hover/press:text-[#0a0a0a] transition-colors mt-1 flex-shrink-0" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                <path d="M5 11L11 5M11 5H6M11 5V10" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Video modal -->
+  <div id="video-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm items-center justify-center p-4 sm:p-8 hidden" role="dialog" aria-modal="true" aria-labelledby="video-modal-title">
+    <button id="video-modal-close" type="button" aria-label="Close video"
+      class="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors backdrop-blur">
+      <svg class="w-5 h-5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M3 3L13 13M13 3L3 13" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <div class="w-full max-w-5xl">
+      <div id="video-modal-title" class="mb-3 text-white/80 text-[14px] font-medium tracking-tight"></div>
+      <div class="aspect-video w-full rounded-xl overflow-hidden bg-black shadow-2xl ring-1 ring-white/10">
+        <iframe id="video-modal-iframe" class="w-full h-full" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Click anywhere on an expandable card (except inner links/buttons) toggles its expanded state
+    function toggleCardExpand(card) {
+      const expanded = card.classList.toggle('expanded');
+      card.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      const toggleBtn = card.querySelector('[data-partners-toggle]');
+      if (toggleBtn) toggleBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    }
+    document.querySelectorAll('[data-card-expand]').forEach((card) => {
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('a, button')) return;
+        toggleCardExpand(card);
+      });
+      card.addEventListener('keydown', (e) => {
+        if (e.target !== card) return;
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleCardExpand(card);
+        }
+      });
+    });
+
+    // Video modal
+    const videoModal = document.getElementById('video-modal');
+    const videoIframe = document.getElementById('video-modal-iframe');
+    const videoTitle = document.getElementById('video-modal-title');
+    const videoClose = document.getElementById('video-modal-close');
+
+    function openVideo(videoId, title) {
+      videoIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+      videoTitle.textContent = title || '';
+      videoModal.classList.remove('hidden');
+      videoModal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeVideo() {
+      videoIframe.src = '';
+      videoModal.classList.add('hidden');
+      videoModal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    videoClose.addEventListener('click', closeVideo);
+    videoModal.addEventListener('click', (e) => {
+      if (e.target === videoModal) closeVideo();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !videoModal.classList.contains('hidden')) closeVideo();
+    });
+
+    // SVP photo collection — sourced from stevenvanyt.wixsite.com/my-site (photo + design pages)
+    const SVP_WIX_BASE = 'https://static.wixstatic.com/media/';
+    const SVP_LANDSCAPE_HASHES = [
+      'd76ee7_6323f97055f940b895346baab7b7d57f',
+      'd76ee7_23bee80044134c16b05a2faf6fb2f4ff',
+      'd76ee7_6d04c6cfd86f443fa4ee17f118665732',
+      'd76ee7_74b61084ee4546b69923dfaf5155e1ba',
+      'd76ee7_e9a42d639b9f472b831ad71aa1af1740',
+      'd76ee7_75dbbed858ee4206ad4bb84ad3db1db5',
+      'd76ee7_060a6665b09a491bbd1500c535928c1c',
+      'd76ee7_503b751678a04723996acd21624c55ef',
+      'd76ee7_7b632238575c437d9e087016f5ef582e',
+      'd76ee7_12c73b66c23d4c8fbbd2ccd60e3847aa',
+      'd76ee7_0c11549fd3f9439b90dcf3384328088c',
+      'd76ee7_2155d88eb9b34ed8b86f6753577bbbb5',
+      'd76ee7_c1dc7f5514f6402b832295376dcc153f',
+      'd76ee7_ff02e6a22e8346fea455cfded545196b',
+      'd76ee7_8576a30c01954198a30cca5bed056977',
+      'd76ee7_921de149ebf34b77a1132d161ca44d12',
+      'd76ee7_a1cfc9ed750a40ac8ba42befe81265d3',
+      'd76ee7_0a04c9a3b5044b49aaaf71e1a4cc9da6',
+    ];
+    const SVP_DESIGN_HASHES = [
+      // 960x540 landscape design shots
+      ['d76ee7_9d36ba30e55849eaa1783dd26c8161d2', 'jpg', 960, 540],
+      ['d76ee7_dd2d95475f2a4865bbfeeee12fffa501', 'jpg', 960, 539],
+      // 480x480 design pieces (cropped to landscape)
+      ['d76ee7_3aa80258d8d74fe5a5cfd0e083368a00', 'jpeg', 480, 480],
+      ['d76ee7_e110a06a5fb246a8a5fbe241f7d4fde2', 'jpeg', 480, 480],
+      // 480x600/601 portrait design pieces
+      ['d76ee7_40b98d6a01be4e14a3f6d55692eef4c5', 'jpeg', 480, 601],
+      ['d76ee7_4b1d0e0246044af89d4e39b8aaa8dc3b', 'jpeg', 480, 601],
+      ['d76ee7_42a4d69825654f56ba06bd9224642d9b', 'jpeg', 480, 601],
+      ['d76ee7_8b104e1c0ba24b068e9462a716b9b005', 'jpeg', 480, 621],
+      ['d76ee7_9bb5a70dbfdf40c0945890c30357f553', 'png', 480, 601],
+      ['d76ee7_c02c9ab9983146c5be03ceb711e4b6e0', 'png', 480, 601],
+      ['d76ee7_3cf031ccf94d432b9483dc1f59302655', 'png', 480, 600],
+      ['d76ee7_fb2172cd9d6c477b9f8288c0f051141d', 'png', 480, 600],
+      ['d76ee7_f929e05d5cbc4a0d9155d3a9f56e1575', 'jpg', 480, 601],
+      ['d76ee7_40ea389c4de54ebfb06f6a783c79dd92', 'png', 480, 600],
+      ['d76ee7_6f4cce14e5c04f20b90d390e5459e1ee', 'jpg', 480, 622],
+      ['d76ee7_77b2abb6610544e4a0e83da886a8a48c', 'png', 480, 600],
+      ['d76ee7_f7aa1913aa86461cb4c8f4f48dcc968d', 'png', 480, 601],
+      ['d76ee7_353f5eb273b441bf90923a01164f2233', 'jpg', 480, 600],
+      ['d76ee7_26e339debc3d4a7b8a1f8a30044ca28d', 'jpg', 480, 601],
+      ['d76ee7_d28c9aab724f40738b884cd507ea8d1e', 'jpg', 480, 601],
+      ['d76ee7_62364f7587a7404291f41c779fe36dfd', 'jpg', 480, 600],
+      ['d76ee7_ff2336182c6749b68643a729a8ef09a5', 'jpg', 480, 600],
+      ['d76ee7_526c15b3b5e443fda159c24c2735de58', 'jpg', 480, 600],
+    ];
+    function svpUrl(hash, ext, w, h) {
+      return `url(${SVP_WIX_BASE}${hash}~mv2.${ext}/v1/fit/w_${w},h_${h},q_90,enc_avif,quality_auto/${hash}~mv2.${ext})`;
+    }
+    const SVP_PHOTOS = [
+      ...SVP_LANDSCAPE_HASHES.map((h) => ({ url: svpUrl(h, 'jpg', 1440, 961), w: 1440, h: 961 })),
+    ];
+    // Shuffle so the same images don't always cycle in the same order
+    SVP_PHOTOS.sort(() => Math.random() - 0.5);
+    // Cap each image to a max dimension so the hover stays a sensible size
+    const SVP_MAX_DIM = 520;
+    SVP_PHOTOS.forEach((p) => {
+      const ratio = p.w / p.h;
+      if (ratio >= 1) { p.dispW = SVP_MAX_DIM; p.dispH = Math.round(SVP_MAX_DIM / ratio); }
+      else            { p.dispH = SVP_MAX_DIM; p.dispW = Math.round(SVP_MAX_DIM * ratio); }
+    });
+
+    // SVP cursor-follow image — each image at native aspect, opaque crossfade between cycles, top-right of cursor
+    document.querySelectorAll('[data-svp-trail]').forEach((wrap) => {
+      const photos = SVP_PHOTOS;
+      if (photos.length === 0) return;
+      const card = wrap.closest('.bento-card');
+      const stage = wrap.querySelector('[data-svp-stage]');
+      const layers = wrap.querySelectorAll('[data-svp-layer]');
+      if (!stage || layers.length < 2) return;
+
+      // Preload all images
+      photos.forEach((p) => {
+        const m = p.url.match(/url\(\s*['"]?([^'")]+)['"]?\s*\)/);
+        if (m && m[1]) { const img = new Image(); img.src = m[1]; }
+      });
+
+      // Position image so its bottom-left corner sits up-and-right of the cursor
+      const OFFSET_X = 20;   // image starts this far to the right of cursor
+      const OFFSET_Y = -20;  // image bottom is this far above cursor
+
+      function applyPhoto(layer, photo) {
+        layer.style.backgroundImage = photo.url.startsWith('url(') ? photo.url : `url("${photo.url}")`;
+        layer.style.width = photo.dispW + 'px';
+        layer.style.height = photo.dispH + 'px';
+      }
+      // Initialize layer 0 with first photo
+      let frontLayer = 0;
+      let activePhotoIdx = 0;
+      applyPhoto(layers[0], photos[0]);
+      layers[0].classList.add('is-active');
+
+      let mouseClientX = 0, mouseClientY = 0;
+      let pos = { x: 0, y: 0 };
+      let isHovering = false;
+      let rafId = null;
+      let cycleId = null;
+
+      function tick() {
+        // Stage anchor target = (cursor.x + OFFSET_X, cursor.y + OFFSET_Y); layer bottom-left attaches here.
+        const targetX = mouseClientX + OFFSET_X;
+        const targetY = mouseClientY + OFFSET_Y;
+        pos.x += (targetX - pos.x) * 0.30;
+        pos.y += (targetY - pos.y) * 0.30;
+        stage.style.transform = `translate3d(${Math.round(pos.x)}px, ${Math.round(pos.y)}px, 0)`;
+        rafId = requestAnimationFrame(tick);
+      }
+
+      function nextPhoto() {
+        activePhotoIdx = (activePhotoIdx + 1) % photos.length;
+        const newFront = 1 - frontLayer;
+        applyPhoto(layers[newFront], photos[activePhotoIdx]);
+        layers[newFront].classList.add('is-active');
+        layers[frontLayer].classList.remove('is-active');
+        frontLayer = newFront;
+      }
+
+      card.addEventListener('mouseenter', (e) => {
+        mouseClientX = e.clientX;
+        mouseClientY = e.clientY;
+        const targetX = mouseClientX + OFFSET_X;
+        const targetY = mouseClientY + OFFSET_Y;
+        pos.x = targetX; pos.y = targetY;
+        stage.style.transform = `translate3d(${Math.round(pos.x)}px, ${Math.round(pos.y)}px, 0)`;
+        isHovering = true;
+        stage.classList.add('is-active');
+        if (!rafId) rafId = requestAnimationFrame(tick);
+        if (!cycleId) cycleId = setInterval(nextPhoto, 1700);
+      });
+      card.addEventListener('mousemove', (e) => {
+        mouseClientX = e.clientX;
+        mouseClientY = e.clientY;
+      });
+      card.addEventListener('mouseleave', () => {
+        isHovering = false;
+        stage.classList.remove('is-active');
+        clearInterval(cycleId);
+        cycleId = null;
+        setTimeout(() => {
+          if (!isHovering) {
+            cancelAnimationFrame(rafId);
+            rafId = null;
+          }
+        }, 400);
+      });
+    });
+
+    // ABOUT card hover image — single photo follows cursor, no cycling
+    document.querySelectorAll('[data-about-card]').forEach((card) => {
+      const photo = card.querySelector('[data-about-image]');
+      if (!photo) return;
+      let mouseX = 0, mouseY = 0;
+      let pos = { x: 0, y: 0 };
+      let isHovering = false;
+      let rafId = null;
+
+      function tick() {
+        pos.x += (mouseX - pos.x) * 0.22;
+        pos.y += (mouseY - pos.y) * 0.22;
+        photo.style.transform = `translate3d(${Math.round(pos.x)}px, ${Math.round(pos.y)}px, 0)`;
+        photo.style.opacity = isHovering ? '1' : '0';
+        rafId = requestAnimationFrame(tick);
+      }
+
+      function targetFromEvent(e) {
+        return { x: e.clientX + 28, y: e.clientY + 28 };
+      }
+      card.addEventListener('mouseenter', (e) => {
+        const t = targetFromEvent(e);
+        mouseX = t.x; mouseY = t.y;
+        pos.x = mouseX; pos.y = mouseY;
+        isHovering = true;
+        if (photo.tagName === 'VIDEO') {
+          photo.currentTime = 0;
+          photo.play().catch(() => {});
+        }
+        if (!rafId) rafId = requestAnimationFrame(tick);
+      });
+      card.addEventListener('mousemove', (e) => {
+        const t = targetFromEvent(e);
+        mouseX = t.x; mouseY = t.y;
+      });
+      card.addEventListener('mouseleave', () => {
+        isHovering = false;
+        if (photo.tagName === 'VIDEO') photo.pause();
+        setTimeout(() => {
+          if (!isHovering) {
+            cancelAnimationFrame(rafId);
+            rafId = null;
+          }
+        }, 500);
+      });
+    });
+
+    // Audience ticker — duplicate tiles in DOM so the CSS marquee loops seamlessly
+    document.querySelectorAll('[data-audience-ticker]').forEach((ticker) => {
+      const original = ticker.innerHTML;
+      ticker.innerHTML = original + original;
+    });
+
+    // Click-to-expand partner toggles
+    document.querySelectorAll('[data-partners-toggle]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const group = btn.closest('.partners-group');
+        if (!group) return;
+        const expanded = group.classList.toggle('expanded');
+        btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        const label = btn.querySelector('.partner-toggle-label');
+        if (label) {
+          if (expanded) {
+            const match = label.dataset.original || label.textContent;
+            label.dataset.original = match;
+            label.textContent = 'Show less';
+          } else if (label.dataset.original) {
+            label.textContent = label.dataset.original;
+          }
+        }
+      });
+    });
+
+    // Bind any anchor with [data-video] to open the modal instead of navigating
+    document.querySelectorAll('[data-video]').forEach((el) => {
+      el.addEventListener('click', (e) => {
+        // Allow new-tab/new-window via modifier keys to fall through to default
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
+        e.preventDefault();
+        e.stopPropagation();
+        openVideo(el.getAttribute('data-video'), el.getAttribute('data-video-title'));
+      });
+    });
+  </script>
+</body>
+</html>

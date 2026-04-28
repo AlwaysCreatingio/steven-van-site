@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Steven Van Productions — Steven Van</title>
+  <meta name="description" content="My creative production studio. Branded content, music videos, and campaigns for global brands and institutions." />
+  <meta name="theme-color" content="#ffffff" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Steven Van Productions" />
+  <meta property="og:description" content="My creative production studio. Branded content, music videos, and campaigns for global brands and institutions." />
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230a0a0a'/%3E%3Ctext x='50' y='66' font-family='Inter,sans-serif' font-size='52' font-weight='800' text-anchor='middle' fill='%23fff'%3ESV%3C/text%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { fontFamily: { sans: ['"DM Sans"', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'] } } } };
+  </script>
+
+  <style>
+    html { font-size: 17.6px; scrollbar-gutter: stable; overscroll-behavior: none; }
+    body {
+      background: #ffffff;
+      color: #0a0a0a;
+      font-family: 'DM Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      letter-spacing: -0.01em;
+    }
+    h1, h2, h3, h4 { letter-spacing: -0.025em; }
+
+    .bento {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-auto-rows: min-content;
+      grid-auto-flow: dense;
+      gap: 0;
+    }
+    .bento-card {
+      background: #fafafa;
+      border: 1px solid #e5e5e5;
+      margin: -1px 0 0 -1px;
+      padding: 20px;
+      transition: background 200ms, border-color 200ms;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .col-2 { grid-column: span 2; }
+    .col-3 { grid-column: span 3; }
+    .col-4 { grid-column: span 4; }
+    .row-2 { grid-row: span 2; }
+    @media (max-width: 768px) {
+      .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .col-3, .col-4 { grid-column: span 2; }
+    }
+    @media (max-width: 480px) {
+      .bento { grid-template-columns: 1fr; }
+      .col-2, .col-3, .col-4 { grid-column: span 1; }
+    }
+
+    /* Partner pills */
+    .partner-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px 6px 6px;
+      border-radius: 9999px;
+      background: #ffffff;
+      border: 1px solid #e5e5e5;
+      color: #262626;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: -0.005em;
+      transition: border-color 150ms, background 150ms, transform 150ms;
+      text-decoration: none;
+    }
+    .partner-pill:hover {
+      border-color: #a3a3a3;
+      background: #fafafa;
+      transform: translateY(-1px);
+    }
+    .partner-pill img {
+      width: 22px;
+      height: 22px;
+      border-radius: 9999px;
+      background: #f5f5f5;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    /* Photo gallery */
+    .photo-tile {
+      aspect-ratio: 4 / 3;
+      background-size: cover;
+      background-position: center;
+      transition: transform 300ms ease;
+      overflow: hidden;
+      cursor: zoom-in;
+      padding: 0;
+    }
+    .photo-tile.tile-portrait {
+      aspect-ratio: 4 / 5;
+    }
+    .photo-tile:hover {
+      transform: scale(1.02);
+      z-index: 1;
+    }
+
+    /* Video tile — embedded YouTube */
+    .video-tile {
+      padding: 0;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      position: relative;
+    }
+    .video-tile iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Single column on every breakpoint */
+    .col-1 { grid-column: span 1; }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 10, 0.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 60;
+      padding: 32px;
+      cursor: zoom-out;
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(128,128,128,0.08); border-radius: 5px; }
+    ::-webkit-scrollbar-thumb { background-color: #a3a3a3; border-radius: 5px; }
+    ::-webkit-scrollbar-thumb:hover { background-color: #525252; }
+  </style>
+</head>
+<body>
+  <main class="w-full">
+    <!-- Back link bar -->
+    <div class="px-6 pt-5">
+      <a href="/" class="inline-flex items-center gap-2 text-[13px] font-medium text-[#525252] hover:text-[#0a0a0a] transition-colors">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M11 5L5 11M5 11H10M5 11V6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Back to Steven Van
+      </a>
+    </div>
+
+    <div class="bento mt-5">
+      <!-- Header card -->
+      <div class="bento-card col-4">
+        <div class="flex items-start justify-between gap-3 flex-wrap">
+          <div class="inline-flex items-center gap-3 text-[22px] sm:text-[26px] font-semibold tracking-[0.04em] text-[#0a0a0a]">
+            <img src="/images/svp-logo.jpeg" alt="" class="w-7 h-7 rounded-sm object-cover" />
+            <h1 class="m-0">STEVEN VAN PRODUCTIONS</h1>
+          </div>
+          <div class="text-[12px] font-semibold tracking-[0.08em] text-[#737373] uppercase whitespace-nowrap pt-2">Apr 2019 &ndash; Apr 2023</div>
+        </div>
+        <p class="mt-4 text-[18px] text-[#262626] leading-relaxed max-w-3xl">
+          My creative production studio. Branded content, music videos, and campaigns for global brands and institutions.
+        </p>
+      </div>
+
+      <!-- Videos — populated by JS from VIDEO_IDS below. Add YouTube IDs to that array. -->
+      <div id="video-gallery" style="display: contents;"></div>
+
+      <!-- Photo gallery — populated by JS from the same Wix image source as the home-page hover -->
+      <div id="photo-gallery" style="display: contents;"></div>
+
+      <!-- Past clients -->
+      <div class="bento-card col-4">
+        <h2 class="text-[15px] font-semibold tracking-[0.06em] text-[#525252]">PAST CLIENTS</h2>
+        <div class="mt-3 flex flex-wrap gap-2">
+          <a href="https://www.converse.com" target="_blank" rel="noopener" class="partner-pill"><img src="/images/converse-logo.png" alt="" loading="lazy"/>Converse</a>
+          <a href="https://www.canon.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=canon.com&sz=64" alt="" loading="lazy"/>Canon</a>
+          <a href="https://www.doritos.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=doritos.com&sz=64" alt="" loading="lazy"/>Doritos</a>
+          <a href="https://www.mountaindew.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=mountaindew.com&sz=64" alt="" loading="lazy"/>Mountain Dew</a>
+          <a href="https://www.2k.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=2k.com&sz=64" alt="" loading="lazy"/>2K</a>
+          <a href="https://www.columbiarecords.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=columbiarecords.com&sz=64" alt="" loading="lazy"/>Columbia Records</a>
+          <a href="https://www.epicrecords.com" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=epicrecords.com&sz=64" alt="" loading="lazy"/>Epic Records</a>
+          <a href="https://www.utoronto.ca" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=utoronto.ca&sz=64" alt="" loading="lazy"/>University of Toronto</a>
+          <a href="https://www.torontomu.ca" target="_blank" rel="noopener" class="partner-pill"><img src="https://www.google.com/s2/favicons?domain=torontomu.ca&sz=64" alt="" loading="lazy"/>Toronto Metropolitan University</a>
+          <a href="https://www.brampton.ca" target="_blank" rel="noopener" class="partner-pill"><img src="/images/brampton-logo.jpg" alt="" loading="lazy"/>City of Brampton</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <img id="lightbox-img" alt="" />
+  </div>
+
+  <script>
+    // Wix image source — same set as the hover effect on the home page
+    const WIX_BASE = 'https://static.wixstatic.com/media/';
+    const LANDSCAPE_HASHES = [
+      'd76ee7_6323f97055f940b895346baab7b7d57f',
+      'd76ee7_23bee80044134c16b05a2faf6fb2f4ff',
+      'd76ee7_6d04c6cfd86f443fa4ee17f118665732',
+      'd76ee7_74b61084ee4546b69923dfaf5155e1ba',
+      'd76ee7_e9a42d639b9f472b831ad71aa1af1740',
+      'd76ee7_75dbbed858ee4206ad4bb84ad3db1db5',
+      'd76ee7_060a6665b09a491bbd1500c535928c1c',
+      'd76ee7_503b751678a04723996acd21624c55ef',
+      'd76ee7_7b632238575c437d9e087016f5ef582e',
+      'd76ee7_12c73b66c23d4c8fbbd2ccd60e3847aa',
+      'd76ee7_0c11549fd3f9439b90dcf3384328088c',
+      'd76ee7_2155d88eb9b34ed8b86f6753577bbbb5',
+      'd76ee7_c1dc7f5514f6402b832295376dcc153f',
+      'd76ee7_ff02e6a22e8346fea455cfded545196b',
+      'd76ee7_8576a30c01954198a30cca5bed056977',
+      'd76ee7_921de149ebf34b77a1132d161ca44d12',
+      'd76ee7_a1cfc9ed750a40ac8ba42befe81265d3',
+      'd76ee7_0a04c9a3b5044b49aaaf71e1a4cc9da6',
+    ];
+    const DESIGN_TILES = [
+      ['d76ee7_9d36ba30e55849eaa1783dd26c8161d2', 'jpg', 960, 540, 'landscape'],
+      ['d76ee7_dd2d95475f2a4865bbfeeee12fffa501', 'jpg', 960, 539, 'landscape'],
+      ['d76ee7_3aa80258d8d74fe5a5cfd0e083368a00', 'jpeg', 480, 480, 'landscape'],
+      ['d76ee7_e110a06a5fb246a8a5fbe241f7d4fde2', 'jpeg', 480, 480, 'landscape'],
+      ['d76ee7_40b98d6a01be4e14a3f6d55692eef4c5', 'jpeg', 480, 601, 'portrait'],
+      ['d76ee7_4b1d0e0246044af89d4e39b8aaa8dc3b', 'jpeg', 480, 601, 'portrait'],
+      ['d76ee7_42a4d69825654f56ba06bd9224642d9b', 'jpeg', 480, 601, 'portrait'],
+      ['d76ee7_8b104e1c0ba24b068e9462a716b9b005', 'jpeg', 480, 621, 'portrait'],
+      ['d76ee7_9bb5a70dbfdf40c0945890c30357f553', 'png', 480, 601, 'portrait'],
+      ['d76ee7_c02c9ab9983146c5be03ceb711e4b6e0', 'png', 480, 601, 'portrait'],
+      ['d76ee7_3cf031ccf94d432b9483dc1f59302655', 'png', 480, 600, 'portrait'],
+      ['d76ee7_fb2172cd9d6c477b9f8288c0f051141d', 'png', 480, 600, 'portrait'],
+      ['d76ee7_f929e05d5cbc4a0d9155d3a9f56e1575', 'jpg', 480, 601, 'portrait'],
+      ['d76ee7_40ea389c4de54ebfb06f6a783c79dd92', 'png', 480, 600, 'portrait'],
+      ['d76ee7_6f4cce14e5c04f20b90d390e5459e1ee', 'jpg', 480, 622, 'portrait'],
+      ['d76ee7_77b2abb6610544e4a0e83da886a8a48c', 'png', 480, 600, 'portrait'],
+      ['d76ee7_f7aa1913aa86461cb4c8f4f48dcc968d', 'png', 480, 601, 'portrait'],
+      ['d76ee7_353f5eb273b441bf90923a01164f2233', 'jpg', 480, 600, 'portrait'],
+      ['d76ee7_26e339debc3d4a7b8a1f8a30044ca28d', 'jpg', 480, 601, 'portrait'],
+      ['d76ee7_d28c9aab724f40738b884cd507ea8d1e', 'jpg', 480, 601, 'portrait'],
+      ['d76ee7_62364f7587a7404291f41c779fe36dfd', 'jpg', 480, 600, 'portrait'],
+      ['d76ee7_ff2336182c6749b68643a729a8ef09a5', 'jpg', 480, 600, 'portrait'],
+      ['d76ee7_526c15b3b5e443fda159c24c2735de58', 'jpg', 480, 600, 'portrait'],
+    ];
+
+    function buildUrl(hash, ext, w, h) {
+      return `${WIX_BASE}${hash}~mv2.${ext}/v1/fit/w_${w},h_${h},q_90,enc_avif,quality_auto/${hash}~mv2.${ext}`;
+    }
+
+    const tiles = [
+      ...LANDSCAPE_HASHES.map((h) => ({ url: buildUrl(h, 'jpg', 1440, 961), full: buildUrl(h, 'jpg', 1920, 1281), orient: 'landscape' })),
+      ...DESIGN_TILES.map(([h, e, w, ht, o]) => ({ url: buildUrl(h, e, w, ht), full: buildUrl(h, e, w, ht), orient: o })),
+    ];
+
+    const gallery = document.getElementById('photo-gallery');
+    tiles.forEach((tile) => {
+      const div = document.createElement('div');
+      div.className = `bento-card col-1 photo-tile ${tile.orient === 'portrait' ? 'tile-portrait' : ''}`;
+      div.style.backgroundImage = `url('${tile.url}')`;
+      div.setAttribute('data-photo', tile.full);
+      gallery.appendChild(div);
+    });
+
+    // SVP YouTube videos
+    const VIDEOS = [
+      { id: 'KB-uGR88O20', title: '2019 Director Reel — Steven Van' },
+      { id: 'EZuK1UyaiV4', title: 'Exploring Shanghai with Rose Bertram & Tommy Hilfiger' },
+      { id: '7VXpF2TZMCY', title: 'CJ McCollum & Erik McCollum Suit Fitting | King & Bay' },
+      { id: 'r9fFWdociYo', title: 'Kappa x Disney #Capsule416 Pop-Up @ Footaction' },
+      { id: '0CyMOdRCAsM', title: 'Danny Green x HP Canada | Meet & Greet' },
+      { id: 'zPnomwwYlXE', title: 'BoxOut Performance x Deloitte | Recap' },
+      { id: 'lizTVwf-3nE', title: 'Lil Tjay #True2Myself Tour | Recap' },
+      { id: '_4HxzTNqFvk', title: "Aunt Lucy's Burgers x Upwrd Digital Solutions" },
+      { id: 'l16bvDWZ_Sw', title: 'TOSpawn x Waves E-Gaming | Event Recap' },
+      { id: 'EbE4-NLJBHU', title: 'C.J. x Erik McCollum | Montecito Toronto' },
+      { id: 'B3XLQoigJN8', title: 'Forest Watson — G-STAR (Official Music Video)' },
+      { id: 'lZCc7VifC3c', title: 'Toronto FC Commercial | BTS with Liam Fraser' },
+      { id: 'XC8KHugXrwE', title: 'Polo G Concert | Recap Video' },
+    ];
+    const videoGallery = document.getElementById('video-gallery');
+    VIDEOS.forEach(({ id, title }) => {
+      const div = document.createElement('div');
+      div.className = 'bento-card col-2 video-tile';
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.allowFullscreen = true;
+      iframe.loading = 'lazy';
+      iframe.title = title;
+      div.appendChild(iframe);
+      videoGallery.appendChild(div);
+    });
+
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    document.querySelectorAll('.photo-tile').forEach((tile) => {
+      tile.addEventListener('click', () => {
+        const url = tile.getAttribute('data-photo');
+        if (!url) return;
+        lightboxImg.src = url;
+        lightbox.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+    function closeLightbox() {
+      lightbox.classList.remove('is-open');
+      lightboxImg.src = '';
+      document.body.style.overflow = '';
+    }
+    lightbox.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
+    });
+  </script>
+</body>
+</html>
