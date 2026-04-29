@@ -219,8 +219,20 @@
       .col-2, .col-3, .col-4 { grid-column: span 1; }
       .row-2, .row-3 { grid-row: span 1; }
     }
-    /* About card always comes before Audiences */
-    [data-about-card] { order: -1; }
+    /* Explicit card ordering — keeps swaps surgical without flinging cards to the end */
+    [data-about-card]    { order: 1; }
+    .card-audience       { order: 2; }
+    .card-ct             { order: 3; }
+    .card-ac             { order: 4; }
+    .card-svp            { order: 5; }
+    .card-beehiiv        { order: 6; }
+    .card-internships    { order: 7; }
+    .card-press          { order: 8; }
+    /* Mobile only: beehiiv shows before Steven Van Productions */
+    @media (max-width: 768px) {
+      .card-svp     { order: 6; }
+      .card-beehiiv { order: 5; }
+    }
     /* Disable hover-only effects on touch / no-hover devices */
     @media (hover: none), (pointer: coarse) {
       .audience-tile:hover,
@@ -777,7 +789,7 @@
       </div>
 
       <!-- Creators Toolbox -->
-      <div class="bento-card col-2 partners-group group/card cursor-pointer" data-card-expand role="button" tabindex="0" aria-expanded="false" aria-label="Expand Creators Toolbox">
+      <div class="bento-card col-2 partners-group group/card cursor-pointer card-ct" data-card-expand role="button" tabindex="0" aria-expanded="false" aria-label="Expand Creators Toolbox">
         <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-3">
           <a href="https://creatorstoolbox.com" target="_blank" rel="noopener" class="inline-flex items-center gap-2.5 text-[18px] font-semibold tracking-[0.06em] text-[#0a0a0a] group/heading">
             <img src="https://creatorstoolbox.com/favicon.png" alt="" class="w-5 h-5 rounded-sm" loading="lazy" />
@@ -867,7 +879,7 @@
       </div>
 
       <!-- Always Creating -->
-      <div class="bento-card col-2 partners-group group/card cursor-pointer" data-card-expand role="button" tabindex="0" aria-expanded="false" aria-label="Expand Always Creating">
+      <div class="bento-card col-2 partners-group group/card cursor-pointer card-ac" data-card-expand role="button" tabindex="0" aria-expanded="false" aria-label="Expand Always Creating">
         <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-3">
           <a href="https://alwayscreating.io" target="_blank" rel="noopener" class="inline-flex items-center gap-2.5 text-[18px] font-semibold tracking-[0.06em] text-[#0a0a0a] group/heading">
             <img src="https://www.google.com/s2/favicons?domain=alwayscreating.io&sz=64" alt="" class="w-5 h-5 rounded-sm" loading="lazy" />
@@ -939,7 +951,7 @@
       </div>
 
       <!-- Steven Van Productions -->
-      <div class="bento-card col-2 group/card">
+      <div class="bento-card col-2 group/card card-svp">
         <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-3">
           <a href="/productions.html" class="inline-flex items-center gap-2.5 text-[18px] font-semibold tracking-[0.06em] text-[#0a0a0a] group/heading">
             <img src="/images/svp-logo.jpeg" alt="" class="w-5 h-5 rounded-sm object-cover" loading="lazy" />
@@ -981,7 +993,7 @@
       </div>
 
       <!-- beehiiv -->
-      <div class="bento-card col-2 partners-group group/card cursor-pointer" data-card-expand role="button" tabindex="0" aria-expanded="false" aria-label="Expand beehiiv">
+      <div class="bento-card col-2 partners-group group/card cursor-pointer card-beehiiv" data-card-expand role="button" tabindex="0" aria-expanded="false" aria-label="Expand beehiiv">
         <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-3">
           <a href="https://beehiiv.com" target="_blank" rel="noopener" class="inline-flex items-center gap-2.5 text-[18px] font-semibold tracking-[0.06em] text-[#0a0a0a] group/heading">
             <img src="https://www.google.com/s2/favicons?domain=beehiiv.com&sz=64" alt="" class="w-5 h-5 rounded-sm" loading="lazy" />
@@ -1022,7 +1034,7 @@
       </div>
 
       <!-- Internships -->
-      <div class="bento-card col-4">
+      <div class="bento-card col-4 card-internships">
         <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-3">
           <div class="inline-flex items-center gap-2.5 text-[18px] font-semibold tracking-[0.06em] text-[#0a0a0a]">
             <span class="w-5 h-5 rounded-sm bg-white border border-[#e5e5e5] flex items-center justify-center text-[#0a0a0a]">
